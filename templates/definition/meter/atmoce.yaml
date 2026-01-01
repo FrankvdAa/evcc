@@ -7,9 +7,9 @@ capabilities: ["battery-control"]
 requirements:
   description:
     de: |
-      Todo
+      Unterstützung für Atmoce MG100 (im Lieferumfang von MC100 und MC100-T enthalten)
     en: |
-      Todo
+      Support for Atmoce MG100 (included with MC100 and MC100-T)
 params:
   - name: usage
     choice: ["grid", "pv", "battery"]
