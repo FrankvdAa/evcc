@@ -15,7 +15,9 @@ params:
     choice: ["grid", "pv", "battery"]
     allinone: true
   - name: modbus
-    choice: ["tcpip"]
+    choice: ["rs485", "tcpip"]
+    baudrate: 9600
+    id: 1
   - name: capacity
     advanced: true
   - name: minsoc
