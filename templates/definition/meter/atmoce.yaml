@@ -19,11 +19,13 @@ params:
     baudrate: 9600
     id: 1
   - name: capacity
-    advanced: true
+    advanced: false
   - name: minsoc
-    advanced: true
+    advanced: false
+    default: 20
   - name: maxsoc
-    advanced: true
+    advanced: false
+    default: 80
   - name: maxacpower
 render: |
   type: custom
