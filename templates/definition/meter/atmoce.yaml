@@ -125,28 +125,10 @@ render: |
             address: 60310 # Energy Storage Forced Charging/Discharging (0 = Forced charging, 1 = Forced discharging, 2 = Exit forced charging/discharging)
             type: writemultiple
             decode: uint16
-    - case: 2 # hold -> Enable grid charging with 10% (default) target soc -> will not start charging but will prevent uncharging of battery 
+    - case: 2 # hold -> Enable grid charging with minimum target soc -> will not start charging but will prevent uncharging of battery 
       set:
         source: sequence
         set:
-        - source: const
-          value: 2
-          set:
-            source: modbus
-            {{- include "modbus" . | indent 10 }}
-            register:
-              address: 60310 # Energy Storage Forced Charging/Discharging (0 = Forced charging, 1 = Forced discharging, 2 = Exit forced charging/discharging)
-              type: writemultiple
-              decode: uint16
-        - source: const
-          value: 0
-          set:
-            source: modbus
-            {{- include "modbus" . | indent 10 }}
-            register:
-              address: 60311 # Energy Storage Forced Charging/Discharging Mode (0 = Target SOC, 1 = Charging/discharging duration)
-              type: writemultiple
-              decode: uint16
         - source: const
           value: {{ .minsoc }}
           set:
@@ -156,10 +138,15 @@ render: |
               address: 60312 # Energy Storage Forced Charging/Discharging Target SOC
               type: writemultiple
               decode: uint16
-    - case: 3 # charge -> Enable grid charging with 100% target soc (will be stopped by evcc)
-      set:
-        source: sequence
-        set:
+        - source: const
+          value: 0
+          set:
+            source: modbus
+            {{- include "modbus" . | indent 10 }}
+            register:
+              address: 60311 # Energy Storage Forced Charging/Discharging Mode (0 = Target SOC, 1 = Charging/discharging duration)
+              type: writemultiple
+              decode: uint16
         - source: const
           value: 0
           set:
@@ -167,6 +154,19 @@ render: |
             {{- include "modbus" . | indent 10 }}
             register:
               address: 60310 # Energy Storage Forced Charging/Discharging (0 = Forced charging, 1 = Forced discharging, 2 = Exit forced charging/discharging)
+              type: writemultiple
+              decode: uint16
+    - case: 3 # charge -> Enable grid charging with maximum target soc (will be stopped by evcc)
+      set:
+        source: sequence
+        set:
+        - source: const
+          value: {{ .maxsoc }}
+          set:
+            source: modbus
+            {{- include "modbus" . | indent 10 }}
+            register:
+              address: 60312 # Energy Storage Forced Charging/Discharging Target SOC
               type: writemultiple
               decode: uint16
         - source: const
@@ -179,12 +179,12 @@ render: |
               type: writemultiple
               decode: uint16
         - source: const
-          value: {{ .maxsoc }}
+          value: 0
           set:
             source: modbus
             {{- include "modbus" . | indent 10 }}
             register:
-              address: 60312 # Energy Storage Forced Charging/Discharging Target SOC
+              address: 60310 # Energy Storage Forced Charging/Discharging (0 = Forced charging, 1 = Forced discharging, 2 = Exit forced charging/discharging)
               type: writemultiple
               decode: uint16
   capacity: {{ .capacity }} # kWh
