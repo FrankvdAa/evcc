@@ -68,6 +68,28 @@ render: |
       type: holding
       decode: int16
     scale: 0.01
+  voltages:
+  - source: modbus
+    {{- include "modbus" . | indent 2 }}
+    register:
+      address: 60089 # Phase A Grid Voltage (V * 10)
+      type: holding
+      decode: uint16
+    scale: 0.1
+  - source: modbus
+    {{- include "modbus" . | indent 2 }}
+    register:
+      address: 60091 # Phase B Grid Voltage (V * 10)
+      type: holding
+      decode: uint16
+    scale: 0.1
+  - source: modbus
+    {{- include "modbus" . | indent 2 }}
+    register:
+      address: 60093 # Phase C Grid Voltage (V * 10)
+      type: holding
+      decode: uint16
+    scale: 0.1
   {{- end }}
   {{- if eq .usage "pv" }}
   power:
