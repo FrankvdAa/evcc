@@ -34,37 +34,37 @@ render: |
     source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60073 # Grid Active Power (kW)
+      address: 60073 # Grid Active Power (kW * 1000)
       type: holding
       decode: int32
-    scale: 0.001
+    scale: 1
   energy:
     source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60184 # Cumulative Electricity Purchase Volume (kWh)
+      address: 60184 # Cumulative Electricity Purchase Volume (kWh * 100)
       type: holding
       decode: uint64
-    scale: 0.01
+    scale: 0.1
   currents:
   - source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60090 # Phase A Grid Current (A)
+      address: 60090 # Phase A Grid Current (A * 100)
       type: holding
       decode: int16
     scale: 0.01
   - source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60092 # Phase B Grid Current (A)
+      address: 60092 # Phase B Grid Current (A * 100)
       type: holding
       decode: int16
     scale: 0.01
   - source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60094 # Phase C Grid Current (A)
+      address: 60094 # Phase C Grid Current (A * 100)
       type: holding
       decode: int16
     scale: 0.01
@@ -74,18 +74,18 @@ render: |
     source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60069 # Photovoltaic Power Output (kW)
+      address: 60069 # Photovoltaic Power Output (kW * 1000)
       type: holding
       decode: uint32
-    scale: 0.001
+    scale: 1
   energy:
     source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60160 # Cumulative Photovoltaic Power Generation (kWh)
+      address: 60160 # Cumulative Photovoltaic Power Generation (kWh * 100)
       type: holding
       decode: uint64
-    scale: 0.01
+    scale: 0.1
   maxacpower: {{ .maxacpower }}
   {{- end }}
   {{- if eq .usage "battery" }}
@@ -93,18 +93,18 @@ render: |
     source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60316 # Energy Storage Dispatch Charging/Discharging Power (kW)
+      address: 60071 # Energy Storage Charging/Discharging Power (kW * 1000)
       type: holding
       decode: int32
-    scale: 0.001
+    scale: 1
   energy:
     source: modbus
     {{- include "modbus" . | indent 2 }}
     register:
-      address: 60166 # Cumulative Energy Storage Charging Capacity (kWh)
+      address: 60166 # Cumulative Energy Storage Charging Capacity (kWh * 100)
       type: holding
       decode: uint64
-    scale: 0.01
+    scale: 0.1
   soc:
     source: modbus
     {{- include "modbus" . | indent 2 }}
