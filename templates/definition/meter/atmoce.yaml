@@ -19,6 +19,7 @@ params:
     id: 1
   - name: capacity
     advanced: false
+    service: modbus/read?address=60031&type=holding&encoding=uint32&scale=0.001&{modbus}
   - name: minsoc
     advanced: false
     default: 20
@@ -103,7 +104,7 @@ render: |
       address: 60166 # Cumulative Energy Storage Charging Capacity (kWh * 100)
       type: holding
       decode: uint64
-    scale: 0.1
+    scale: 0.01
   soc:
     source: modbus
     {{- include "modbus" . | indent 2 }}
