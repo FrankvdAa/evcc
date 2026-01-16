@@ -45,7 +45,7 @@ render: |
       address: 60184 # Cumulative Electricity Purchase Volume (kWh * 100)
       type: holding
       decode: uint64
-    scale: 0.1
+    scale: 0.01
   currents:
   - source: modbus
     {{- include "modbus" . | indent 2 }}
@@ -107,7 +107,7 @@ render: |
       address: 60160 # Cumulative Photovoltaic Power Generation (kWh * 100)
       type: holding
       decode: uint64
-    scale: 0.1
+    scale: 0.01
   maxacpower: {{ .maxacpower }}
   {{- end }}
   {{- if eq .usage "battery" }}
