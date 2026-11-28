@@ -300,15 +300,6 @@ render: |
           source: sequence
           set:
             - source: const
-              value: 0 # Local: energy storage operates according to the locally set 'Self-consumption' or 'TOU' mode
-              set:
-                source: modbus
-                {{- include "modbus" . | indent 14 }}
-                register:
-                  address: 60301 # Energy Storage Communication Control Mode
-                  type: writemultiple
-                  decode: uint16
-            - source: const
               value: 2 # Exit forced charging/discharging (normal mode)
               set:
                 source: modbus
@@ -341,15 +332,6 @@ render: |
         set:
           source: sequence
           set:
-            - source: const
-              value: 1 # Remote Communication
-              set:
-                source: modbus
-                {{- include "modbus" . | indent 14 }}
-                register:
-                  address: 60301 # Energy Storage Communication Control Mode
-                  type: writemultiple
-                  decode: uint16
             - source: const
               value: 0
               set:
@@ -392,15 +374,6 @@ render: |
         set:
           source: sequence
           set:
-            - source: const
-              value: 1 # Remote Communication
-              set:
-                source: modbus
-                {{- include "modbus" . | indent 14 }}
-                register:
-                  address: 60301 # Energy Storage Communication Control Mode
-                  type: writemultiple
-                  decode: uint16
             - source: const
               value: {{ .maxsoc }}
               set:
@@ -453,15 +426,6 @@ render: |
           source: sequence
           set:
             - source: const
-              value: 1 # Remote Communication
-              set:
-                source: modbus
-                {{- include "modbus" . | indent 14 }}
-                register:
-                  address: 60301 # Energy Storage Communication Control Mode
-                  type: writemultiple
-                  decode: uint16
-            - source: const
               value: 0
               set:
                 source: modbus
@@ -503,15 +467,6 @@ render: |
         set:
           source: sequence
           set:
-            - source: const
-              value: 1 # Remote Communication
-              set:
-                source: modbus
-                {{- include "modbus" . | indent 14 }}
-                register:
-                  address: 60301 # Energy Storage Communication Control Mode
-                  type: writemultiple
-                  decode: uint16
             - source: const
               value: {{ .minsoc }}
               set:
